@@ -1,0 +1,39 @@
+version: '3'
+services:
+  color-avg-computer:
+    image: color-avg-computer:latest
+    build: ./color_avg_computer
+    container_name: color-avg-computer
+    depends_on:
+      - nats-server
+      - image-reader
+    volumes:
+      - ./images:/images
+
+  color-classifier:
+    image: color-classifier:latest
+    build: ./color_classifier
+    container_name: color-classifier
+    depends_on:
+      - nats-server
+      - color-avg-computer
+    volumes:
+      - ./images:/images
+
+  image-reader:
+    image: image-reader:latest
+    build: ./image_reader
+    container_name: image-reader
+    depends_on:
+      - nats-server
+    volumes:
+      - ./images:/images
+
+  nats-server:
+    image: nats:latest
+    container_name: nats-server
+    hostname:  nats-server
+    command: -DV
+    ports:
+      - 4222:4222
+      - 8222:8222

@@ -1,0 +1,3 @@
+asyncio-nats-client==0.11.4
+webcolors==1.11.1
+aiounittest==1.4.0

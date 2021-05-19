@@ -1,0 +1,2 @@
+asyncio-nats-client==0.11.4
+aiounittest==1.4.0
